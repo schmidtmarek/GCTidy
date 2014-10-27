@@ -5,64 +5,25 @@ Getting and Cleaning Tidy Data Set
 
 
 STEP 1:  MANUALLY download data file from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
 STEP 2:  MANUALLY unZIP downloaded file into ./data/ folder into your R default path (obtained by getwd() )
 
 then source script file "run_analysis.R"
 
-which run following steps to get Tidy data set:
+which run following steps to get desired Tidy data set:
 
-load available column list
+1) using regular expressions filter/prepare columne vector to import (only mean+std measurements, no derived/calculated columns)
 
-Now using subsetting with help of regular expression matching to find ONLY mean+std MEASUREMENTS:
+2) load test & train data set into R
 
-finding columns ~ features containing "mean" and not starting with "f" as f are FFT applied signals (= NOT measured)
+3) load subjects & activities 
 
-finding columns ~ features containing "std and not starting with "f" as f are FFT applied signals (= NOT measured)
+4) merge all into FirstTidy data set
 
-finding columns ~ features that also Do NOT contain "Jerk" as Jerk were derived (= NOT measured)
+5) Apply names to FirstTidy and Save to File
 
-finding columns ~ features that also Do NOT contain "Jerk" as Jerk were derived (= NOT measured)
+6) Melt data set
 
-finding columns ~ features that also Do NOT contain "Mag" as Magnitudes were calculated (= NOT measured)
+7) Group by ActivityDescr and VolunteerID and apply mean to variables
 
-finding columns ~ features that also Do NOT contain "Mag" as Magnitudes were calculated (= NOT measured)
-
-concatenate column indexes for extraction
-
-concatenate column names for extraction
-
-first step to prepare vector of NULL values, each NA means column is skipped during table read
-
-then apply colClasses to column indexes that have to be picked up from source 
-
-load test data set into R
-
-obtain loaded column names (prefixed with "V" + extracted column index) and reorder columns in test_set
-
-rename columns as defined in features list
-
-load train data set into R + reorder columns
-
-rename columns as defined in features list
-
-load test subjects and train subjects
-
-load test activities and train activities
-
-load activity (descriptive) labels
-
-label activities preserving order and utilize inline lookup function
-
-MERGE test: set+subject+activity_label into test_set
-
-MERGE train: set+subject+activity_label into train_set
-
-MERGE into one data set
-
-Apply names to FirstTidy and Save to File
-
-Melt data set
-
-Group by ActivityDescr and VolunteerID and apply mean to variables
-
-Write final SecondTidy.TXT data set into file
+8) Write final SecondTidy.TXT data set into file
